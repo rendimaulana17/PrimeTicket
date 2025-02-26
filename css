@@ -1,0 +1,122 @@
+<style>
+  /* Ubah warna saat dihover */
+  nav a {
+  transition: color 0.3s ease-in-out; /* Animasi perubahan warna */
+}
+
+nav a:hover {
+  color: #ff2cb9 !important; /* Warna saat dihover */
+}
+
+nav a:active {
+  color: #3ed8ff !important; /* Warna saat diklik */
+}
+.card img {
+  height: 200px; /* Atur tinggi gambar agar seragam */
+  object-fit: cover; /* Gambar tetap rapi dan tidak terdistorsi */
+}
+
+.card {
+  min-height: 100%; /* Pastikan semua kartu memiliki tinggi yang sama */
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.img-carousel {
+  max-height: 100px; /* Sesuaikan tinggi maksimal */
+  object-fit: cover; /* Agar gambar tidak terdistorsi */
+}
+body {
+  background-color: white !important;
+}
+.container-fluid {
+  background-color: white;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.your-section {
+  background-color: white !important;
+}
+html,
+body {
+  background-color: white !important;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+/* Animasi perubahan warna saat hover */
+nav a {
+  transition: color 0.3s ease-in-out;
+}
+
+nav a:hover {
+  color: #ff2cb9 !important;
+}
+
+nav a:active {
+  color: #3ed8ff !important;
+}
+
+/* Styling kartu agar rapi */
+.card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card {
+  min-height: 100%;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Styling carousel agar gambar tidak terdistorsi */
+.img-carousel {
+  max-height: 100px;
+  object-fit: cover;
+}
+
+/* Pastikan seluruh halaman berbackground putih */
+html,
+body {
+  background-color: white !important;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden; /* Hindari scroll horizontal */
+}
+
+/* Pastikan container mengisi penuh area */
+.container-fluid {
+  background-color: white !important;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Pastikan carousel dan isinya tidak memiliki background */
+.carousel,
+.carousel-inner {
+  background-color: white !important;
+}
+
+/* Pastikan navbar dan header juga putih */
+nav,
+.navbar,
+.navbar-expand-lg {
+  background-color: white !important;
+}
+
+/* Reset semua elemen agar tidak ada background lain */
+* {
+  background-color: transparent !important;
+}

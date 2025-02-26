@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pembayaran Tiket</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">💳 Pembayaran Tiket</h2>
+
+      <!-- Ringkasan Pesanan -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h5>Ringkasan Pesanan</h5>
+        </div>
+        <div class="card-body">
+          <ul id="ringkasanPesanan" class="list-group mb-3"></ul>
+          <p id="totalHarga" class="fw-bold">Total: Rp 0</p>
+          <p id="metodePembayaran">Metode Pembayaran: -</p>
+        </div>
+      </div>
+
+      <!-- Form Pembayaran -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h5>Informasi Pembayaran</h5>
+        </div>
+        <div class="card-body" id="paymentDetails">
+          <!-- Informasi pembayaran akan ditampilkan disini -->
+        </div>
+      </div>
+
+      <!-- Tombol Aksi -->
+      <div class="d-flex justify-content-between">
+        <a href="keranjang.html" class="btn btn-secondary"
+          >Kembali ke Keranjang</a
+        >
+        <button id="bayarBtn" class="btn btn-success">Bayar Sekarang</button>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const ringkasanPesanan = document.getElementById("ringkasanPesanan");
+        const totalHargaElem = document.getElementById("totalHarga");
+        const metodePembayaranElem =
+          document.getElementById("metodePembayaran");
+        const paymentDetails = document.getElementById("paymentDetails");
+
+        // Ambil data dari localStorage
+        const keranjang = JSON.parse(localStorage.getItem("keranjang")) || [];
+        const metodePembayaran =
+          localStorage.getItem("metodePembayaran") || "E-Wallet";
+
+        // Tampilkan ringkasan pesanan
+        let totalHarga = 0;
+
+        keranjang.forEach((tiket) => {
+          const item = document.createElement("li");
+          item.className = "list-group-item";
+          item.innerHTML = `
+          <div class="d-flex justify-content-between">
+            <div>
+              <img src="${tiket.img}" alt="${
+            tiket.title
+          }" width="50" class="me-2">
+              <strong>${tiket.title}</strong> - ${tiket.deskripsi}
+            </div>
+            <span class="text-danger">Rp ${tiket.harga.toLocaleString()}</span>
+          </div>
+        `;
+
+          totalHarga += tiket.harga;
+          ringkasanPesanan.appendChild(item);
+        });
+
+        totalHargaElem.textContent = `Total: Rp ${totalHarga.toLocaleString()}`;
+        metodePembayaranElem.textContent = `Metode Pembayaran: ${metodePembayaran}`;
+
+        // Tampilkan detail pembayaran berdasarkan metode yang dipilih
+        switch (metodePembayaran) {
+          case "E-Wallet":
+            paymentDetails.innerHTML = `
+            <div class="mb-3">
+              <label class="form-label">Nomor E-Wallet</label>
+              <input type="text" class="form-control" placeholder="Masukkan nomor e-wallet">
+            </div>
+          `;
+            break;
+          case "Bank BCA":
+            paymentDetails.innerHTML = `
+            <div class="alert alert-info">
+              <p>Silakan transfer ke rekening BCA:</p>
+              <p><strong>Nomor Rekening:</strong> 1234567890</p>
+              <p><strong>Atas Nama:</strong> PT Tiket Event</p>
+              <p><strong>Jumlah:</strong> Rp ${totalHarga.toLocaleString()}</p>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Bukti Transfer</label>
+              <input type="file" class="form-control">
+            </div>
+          `;
+            break;
+          case "OVO":
+          case "GOPAY":
+          case "DANA":
+            paymentDetails.innerHTML = `
+            <div class="mb-3">
+              <label class="form-label">Nomor Telepon Terdaftar</label>
+              <input type="text" class="form-control" placeholder="Masukkan nomor telepon terdaftar">
+            </div>
+            <div class="alert alert-info">
+              <p>Silakan scan QR code atau transfer ke:</p>
+              <p><strong>Nama:</strong> PT Tiket Event</p>
+              <p><strong>ID:</strong> tiket_event</p>
+              <p><strong>Jumlah:</strong> Rp ${totalHarga.toLocaleString()}</p>
+            </div>
+          `;
+            break;
+          default:
+            paymentDetails.innerHTML = `
+            <div class="alert alert-info">
+              <p>Silakan transfer ke rekening:</p>
+              <p><strong>Bank:</strong> Bank Mandiri</p>
+              <p><strong>Nomor Rekening:</strong> 9876543210</p>
+              <p><strong>Atas Nama:</strong> PT Tiket Event</p>
+              <p><strong>Jumlah:</strong> Rp ${totalHarga.toLocaleString()}</p>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Bukti Transfer</label>
+              <input type="file" class="form-control">
+            </div>
+          `;
+        }
+
+        // Tombol Bayar Sekarang
+        document
+          .getElementById("bayarBtn")
+          .addEventListener("click", function () {
+            alert("Pembayaran sedang diproses. Terima kasih telah berbelanja!");
+            localStorage.setItem("keranjang", JSON.stringify([]));
+            window.location.href = "index.html"; // Redirect ke halaman utama
+          });
+      });
+    </script>
+  </body>
+</html>

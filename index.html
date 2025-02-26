@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prime ticket</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+    <style>
+      /* Ubah warna saat dihover */
+      nav a {
+        transition: color 0.3s ease-in-out; /* Animasi perubahan warna */
+      }
+
+      nav a:hover {
+        color: #ff2cb9 !important; /* Warna saat dihover */
+      }
+
+      nav a:active {
+        color: #3ed8ff !important; /* Warna saat diklik */
+      }
+
+      .cart-badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: #ff2cb9;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .cart-icon {
+        position: relative;
+        cursor: pointer;
+      }
+
+      .product-card {
+        transition: transform 0.3s;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .keranjang-dropdown {
+        min-width: 300px;
+        max-height: 400px;
+        overflow-y: auto;
+      }
+
+      .keranjang-item {
+        border-bottom: 1px solid #eee;
+        padding: 10px 0;
+      }
+
+      .keranjang-item:last-child {
+        border-bottom: none;
+      }
+    </style>
+  </head>
+  <body class="bg-white">
+    <div class="container p-0 mb-4 mt-4 rounded-3 shadow bg-white">
+      <!--menu-->
+      <nav class="d-md-flex p-4 align-items-center">
+        <h1>
+          <span
+            style="
+              color: #3ed8ff;
+              font-family: 'Great Vibes', cursive;
+              font-style: italic;
+              font-weight: bold;
+            "
+            >Prime</span
+          >
+          <span
+            style="
+              color: #ff2cb9;
+              font-family: 'Great Vibes', cursive;
+              font-style: italic;
+              font-weight: bold;
+            "
+            >Ticket</span
+          >
+        </h1>
+
+        <div class="ms-auto my-auto">
+          <ul
+            class="list-inline m-0 d-flex align-items-center"
+            style="font-family: 'Cormorant Garamond', serif"
+          >
+            <li class="list-inline-item mx-md-3">
+              <a
+                href="#collections"
+                class="text-decoration-none text-dark fw-bold"
+                >Ticket for matchday</a
+              >
+            </li>
+            <li class="list-inline-item mx-md-3">
+              <a href="#tentang" class="text-decoration-none text-dark fw-bold"
+                >Tentang Kami</a
+              >
+            </li>
+            <li class="list-inline-item mx-md-3">
+              <a href="#order" class="text-decoration-none text-dark fw-bold"
+                >Selamat Datang di PrimeTicket!</a
+              >
+            </li>
+            <li class="list-inline-item mx-md-3 dropdown">
+              <div
+                class="cart-icon"
+                id="keranjangIcon"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-cart3 fs-4 text-dark"></i>
+                <span class="cart-badge" id="cartBadge">0</span>
+              </div>
+              <div
+                class="dropdown-menu dropdown-menu-end p-3 keranjang-dropdown"
+                id="keranjangDropdown"
+              >
+                <h6 class="dropdown-header">Keranjang Belanja</h6>
+                <div id="keranjangItems">
+                  <!-- Item keranjang akan ditambahkan disini -->
+                  <div class="text-center py-3" id="keranjangKosong">
+                    <p class="text-muted">Keranjang belanja kosong</p>
+                  </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="d-flex justify-content-between fw-bold mb-2">
+                  <span>Total:</span>
+                  <span id="totalHarga">Rp 0</span>
+                </div>
+                <div class="d-grid">
+                  <button class="btn btn-primary" id="btnCheckout" disabled>
+                    Checkout
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div
+        id="carouselExampleInterval"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="10000">
+            <img src="foto ngoding/BANNER.jpg" class="d-block w-100" alt="" />
+          </div>
+          <div class="carousel-item" data-bs-interval="2000">
+            <img
+              src="foto ngoding/lenkape/lensakape (4).jpg"
+              class="d-block w-100"
+              alt=""
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="foto ngoding/lenkape/lensakape (7).jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleInterval"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleInterval"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <!-- Contoh Produk Tiket -->
+      <section id="collections" class="p-4">
+        <h2 class="mb-4 text-center">Tiket Matchday Tersedia</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card h-100 product-card">
+              <img
+                src="foto ngoding/Chelsea vs Arsenal Matchday Poster.jpg"
+                class="card-img-top"
+                alt="Persija vs Persib"
+              />
+              <div class="card-body">
+                <h5 class="card-title">CHELSEA vs ARSENAL</h5>
+                <p class="card-text">Stamford Bridge, 10 Nov 2024</p>
+                <p class="card-text fw-bold">Rp 650,000</p>
+                <button
+                  class="btn btn-primary btnDetail"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  data-title="Chelsea VS ARSENAL"
+                  data-img="foto ngoding/Chelsea vs Arsenal Matchday Poster.jpg"
+                  data-harga="650000"
+                  data-deskripsi="DERBY LONDON CHELSEA VS ARSENAL 10 NOV 2024"
+                >
+                  Detail
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 product-card">
+              <img
+                src="foto ngoding/decul.jpg"
+                class="card-img-top"
+                alt="BARCELONA VS REAL MADRID"
+              />
+              <div class="card-body">
+                <h5 class="card-title">BARCELONA VS REAL MADRID</h5>
+                <p class="card-text">Camp Nou, 8 March 2025</p>
+                <p class="card-text fw-bold">Rp 800,000</p>
+                <button
+                  class="btn btn-primary btnDetail"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  data-title="BARCELONA VS REAL MADRID"
+                  data-img="foto ngoding/decul.jpg"
+                  data-harga="800000"
+                  data-deskripsi="EL CLASICO BARCELONA VS REAL MADRID 8 DEC 2025"
+                >
+                  Detail
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100 product-card">
+              <img
+                src="foto ngoding/prsj.jpg"
+                class="card-img-top"
+                alt="PERSIJA VS PERSIB"
+              />
+              <div class="card-body">
+                <h5 class="card-title">PERSIJA VS PERSIB</h5>
+                <p class="card-text">
+                  Stadion Patriot Candrabhaga, 16 Februari 2025
+                </p>
+                <p class="card-text fw-bold">Rp 300,000</p>
+                <button
+                  class="btn btn-primary btnDetail"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  data-title="PERSIJA VS PERSIB"
+                  data-img="foto ngoding/prsj.jpg"
+                  data-harga="300000"
+                  data-deskripsi="EL CLASICO INDONESIA PERSIJA JAKARTA VS PERSIB BANDUNG, 16 FEBRUARI 2025"
+                >
+                  Detail
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100 product-card">
+              <img
+                src="foto ngoding/man city.jpg"
+                class="card-img-top"
+                alt="MAN CITY VS LIVERPOOL"
+              />
+              <div class="card-body">
+                <h5 class="card-title">MAN CITY VS LIVERPOOL</h5>
+                <p class="card-text">Etihad Stadium, 23 February 2025</p>
+                <p class="card-text fw-bold">Rp 700,000</p>
+                <button
+                  class="btn btn-primary btnDetail"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  data-title="MAN CITY VS LIVERPOOL"
+                  data-img="foto ngoding/man city.jpg"
+                  data-harga="650000"
+                  data-deskripsi="SUPER BIG MACTH, MAN CITY VS LIVERPOOL, 16 FEBRUARI 2025"
+                >
+                  Detail
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100 product-card">
+              <img
+                src="foto ngoding/bali.jpg"
+                class="card-img-top"
+                alt="PS BARITO PUTERA VS BALI UNITED"
+              />
+              <div class="card-body">
+                <h5 class="card-title">PS BARITO PUTERA VS BALI UNITED</h5>
+                <p class="card-text">
+                  Stadion Demang Lehman Banjar Baru, 24 Februari 2025
+                </p>
+                <p class="card-text fw-bold">Rp 250,000</p>
+                <button
+                  class="btn btn-primary btnDetail"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  data-title="PS BARITO PUTERA VS BALI UNITED"
+                  data-img="foto ngoding/bali.jpg"
+                  data-harga="250000"
+                  data-deskripsi="PS BARITO PUTERA VS BALI UNITED, 24 FEBRUARI 2025"
+                >
+                  Detail
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100 product-card">
+              <img
+                src="foto ngoding/inter jupe.jpg"
+                class="card-img-top"
+                alt="INTER MILAN VS JUVENTUS"
+              />
+              <div class="card-body">
+                <h5 class="card-title">INTER MILAN VS JUVENTUS</h5>
+                <p class="card-text">San Siro Stadium, 16 February 2025</p>
+                <p class="card-text fw-bold">Rp 600,000</p>
+                <button
+                  class="btn btn-primary btnDetail"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  data-title="INTER VS JUVENTUS"
+                  data-img="foto ngoding/inter jupe.jpg"
+                  data-harga="600000"
+                  data-deskripsi="BIG MACTH, INTER MILAN VS JUVENTUS  16 FEBRUARY 2025"
+                >
+                  Detail
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100 product-card">
+              <img
+                src="foto ngoding/barca vs atm.jpg"
+                class="card-img-top"
+                alt="BARCELONA VS ATLETICO MADRID"
+              />
+              <div class="card-body">
+                <h5 class="card-title">BARCELONA VS ATLETICO MADRID</h5>
+                <p class="card-text">
+                  Stadion Olimpiade Lluis Companys, 25 February 2025
+                </p>
+                <p class="card-text fw-bold">Rp 630,000</p>
+                <button
+                  class="btn btn-primary btnDetail"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  data-title="BARCELONA VS ATLETICO MADRID"
+                  data-img="foto ngoding/barca vs atm.jpg"
+                  data-harga="630000"
+                  data-deskripsi="BIG MACTH, BARCELONA VS ATLETICO MADRID  25 FEBRUARY 2025"
+                >
+                  Detail
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100 product-card">
+              <img
+                src="foto ngoding/game ac milan.jpg"
+                class="card-img-top"
+                alt="AC MILAN VS HELLAS VERONA"
+              />
+              <div class="card-body">
+                <h5 class="card-title">AC MILAN VS HELLAS VERONA</h5>
+                <p class="card-text">San Siro, 15 February 2025</p>
+                <p class="card-text fw-bold">Rp 550,000</p>
+                <button
+                  class="btn btn-primary btnDetail"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  data-title="AC MILAN VS HELLAS VERONA"
+                  data-img="foto ngoding/game ac milan.jpg"
+                  data-harga="550000"
+                  data-deskripsi="AC MILAN VS HELLAS VERONA, 15 FEBRUARY 2025"
+                >
+                  Detail
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100 product-card">
+              <img
+                src="foto ngoding/gamepsg.jpg"
+                class="card-img-top"
+                alt="LYON VS PSG"
+              />
+              <div class="card-body">
+                <h5 class="card-title">LYON VS PSG</h5>
+                <p class="card-text">Groupama Stadium, 23 February 2025</p>
+                <p class="card-text fw-bold">Rp 550,000</p>
+                <button
+                  class="btn btn-primary btnDetail"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  data-title="LYON VS PSG"
+                  data-img="foto ngoding/gamepsg.jpg"
+                  data-harga="550000"
+                  data-deskripsi="BIG MACTH LYON VS PSG, GROUPAMA STADIUM 23 FEBRUARY 2025"
+                >
+                  Detail
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100 product-card">
+              <img
+                src="foto ngoding/totenham.jpg"
+                class="card-img-top"
+                alt="SPURS VS MAN UNITED"
+              />
+              <div class="card-body">
+                <h5 class="card-title">SPURS VS MAN UNITED</h5>
+                <p class="card-text">
+                  Tottenham Hosput Stadium, 16 February 2025
+                </p>
+                <p class="card-text fw-bold">Rp 600,000</p>
+                <button
+                  class="btn btn-primary btnDetail"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  data-title="SPURS VS MAN UNITED"
+                  data-img="foto ngoding/totenham.jpg"
+                  data-harga="600000"
+                  data-deskripsi="BIG MACTH SPURS VS MAN UNITED, TOTTENHAM HOTSPUR STADIUMR 16 FEBRUARY 2025"
+                >
+                  Detail
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100 product-card">
+              <img
+                src="foto ngoding/dewa.jpg"
+                class="card-img-top"
+                alt="DEWA UNITED VS PERSEBAYA"
+              />
+              <div class="card-body">
+                <h5 class="card-title">DEWA UNITED VS PERSEBAYA</h5>
+                <p class="card-text">
+                  Stadion Pakansari Bogor, 21 February 2025
+                </p>
+                <p class="card-text fw-bold">Rp 250,000</p>
+                <button
+                  class="btn btn-primary btnDetail"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  data-title="DEWA UNITED VS PERSEBAYA"
+                  data-img="foto ngoding/dewa.jpg"
+                  data-harga="250000"
+                  data-deskripsi="SUPER BIG MACTH DEWA UNITED VS PERSEBAYA, STADION PAKANSARI BOGOR 21 FEBRUARI 2025"
+                >
+                  Detail
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100 product-card">
+              <img
+                src="foto ngoding/persib vs madura.jpg"
+                class="card-img-top"
+                alt="PERSIB BANDUNG VS MADURA UNITED"
+              />
+              <div class="card-body">
+                <h5 class="card-title">PERSIB VS MADURA</h5>
+                <p class="card-text">
+                  Gelora Bandung Lautan Api, 22 Februari 2025
+                </p>
+                <p class="card-text fw-bold">Rp 320,000</p>
+                <button
+                  class="btn btn-primary btnDetail"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  data-title="PERSIB BANDUNG VS MADURA UNITED"
+                  data-img="foto ngoding/persib vs madura.jpg"
+                  data-harga="320000"
+                  data-deskripsi="PERSIB BANDUNG VS MADURA UNITED,GELORA BANDUNG LAUTAN API 22 FEBRUARI 2025"
+                >
+                  Detail
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div style="max-width: 400px; margin: auto; text-align: center">
+        <!-- Judul di Atas Carousel -->
+        <h3 style="margin-bottom: 20px; color: #333">
+          Klasemen Sementara, Di 5 Liga Terbaik 2024/2025
+        </h3>
+
+        <div
+          id="carouselExample"
+          class="carousel slide"
+          data-bs-ride="carousel"
+          data-bs-interval="2000"
+        >
+          <div class="carousel-inner text-center">
+            <div class="carousel-item active">
+              <img
+                src="foto ngoding/SaveClip.App_479493018_18301110625236512_5844511776715092278_n.jpg"
+                class="d-inline w-100"
+                alt="Klasemen 1"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="foto ngoding/klasemen epl terbaru.jpg"
+                class="d-inline w-100"
+                alt="Adam"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="foto ngoding/klasemen (4).jpg"
+                class="d-inline w-100"
+                alt="Klasemen 2"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="foto ngoding/klasemen (1).jpg"
+                class="d-inline w-100"
+                alt="Klasemen 3"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="foto ngoding/klasemen (2).jpg"
+                class="d-inline w-100"
+                alt="Klasemen 4"
+              />
+            </div>
+          </div>
+
+          <!-- Tombol Navigasi -->
+          <button
+            class="carousel-control-prev custom-arrow"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+
+          <button
+            class="carousel-control-next custom-arrow"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- CSS untuk Mengubah Warna Panah -->
+      <style>
+        .custom-arrow .carousel-control-prev-icon,
+        .custom-arrow .carousel-control-next-icon {
+          filter: invert(12%) sepia(94%) saturate(7495%) hue-rotate(358deg)
+            brightness(97%) contrast(108%);
+        }
+      </style>
+
+      <!-- Modal Detail Produk -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title modalTitle" id="exampleModalLabel">
+                Detail Tiket
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6 modalImage">
+                  <!-- Gambar akan ditampilkan disini -->
+                </div>
+                <div class="col-md-6">
+                  <h3 class="modalHarga">Rp 0</h3>
+                  <p class="modalDeskripsi"></p>
+                  <div class="mb-3">
+                    <label class="form-label">Pilih Kategori Tiket:</label>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="kategori"
+                        id="kategoriVIP"
+                        value="VIP"
+                        checked
+                      />
+                      <label class="form-check-label" for="kategoriVIP">
+                        VIP (Harga Normal)
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="kategori"
+                        id="kategoriTimur"
+                        value="Timur"
+                      />
+                      <label class="form-check-label" for="kategoriTimur">
+                        Timur (Diskon 50%)
+                      </label>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Jumlah Tiket:</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="jumlahTiket"
+                      min="1"
+                      value="1"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Tutup
+              </button>
+              <button type="button" class="btn btn-primary btnBeli">
+                Tambah ke Keranjang
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Checkout -->
+      <div
+        class="modal fade"
+        id="checkoutModal"
+        tabindex="-1"
+        aria-labelledby="checkoutModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="checkoutModalLabel">Checkout</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="checkoutForm">
+                <div class="mb-3">
+                  <label for="nama" class="form-label">Nama Lengkap</label>
+                  <input type="text" class="form-control" id="nama" required />
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="noHP" class="form-label">No. HP</label>
+                  <input type="tel" class="form-control" id="noHP" required />
+                </div>
+                <div class="mb-3">
+                  <label for="metodePembayaran" class="form-label"
+                    >Metode Pembayaran</label
+                  >
+                  <select class="form-select" id="metodePembayaran" required>
+                    <option value="">Pilih metode pembayaran</option>
+                    <option value="transfer">Transfer Bank</option>
+                    <option value="emoney">E-Money</option>
+                    <option value="kartukredit">Kartu Kredit</option>
+                  </select>
+                </div>
+                <div class="alert alert-info">
+                  Total Pembayaran: <strong id="totalPembayaran">Rp 0</strong>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="btnProsesCheckout"
+              >
+                Proses Pembayaran
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+      ></script>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          // Modal detail produk
+          const modal = document.getElementById("exampleModal");
+          const modalTitle = modal.querySelector(".modalTitle");
+          const modalImage = modal.querySelector(".modalImage");
+          const modalHarga = modal.querySelector(".modalHarga");
+          const modalDeskripsi = modal.querySelector(".modalDeskripsi");
+          const kategoriRadios = modal.querySelectorAll(
+            'input[name="kategori"]'
+          );
+          const jumlahTiket = document.getElementById("jumlahTiket");
+          const btnBeli = modal.querySelector(".btnBeli");
+
+          // Keranjang elements
+          const cartBadge = document.getElementById("cartBadge");
+          const keranjangItems = document.getElementById("keranjangItems");
+          const keranjangKosong = document.getElementById("keranjangKosong");
+          const totalHarga = document.getElementById("totalHarga");
+          const btnCheckout = document.getElementById("btnCheckout");
+
+          // Checkout elements
+          const checkoutModal = document.getElementById("checkoutModal");
+          const totalPembayaran = document.getElementById("totalPembayaran");
+          const btnProsesCheckout =
+            document.getElementById("btnProsesCheckout");
+
+          let hargaAsli = 0;
+          let currentProduct = {};
+
+          // Load keranjang dari localStorage
+          function loadKeranjang() {
+            let keranjang = JSON.parse(localStorage.getItem("keranjang")) || [];
+            updateKeranjangUI(keranjang);
+          }
+
+          // Update UI keranjang
+          function updateKeranjangUI(keranjang) {
+            cartBadge.textContent = keranjang.length;
+
+            if (keranjang.length === 0) {
+              keranjangKosong.style.display = "block";
+              btnCheckout.disabled = true;
+              totalHarga.textContent = "Rp 0";
+              return;
+            }
+
+            keranjangKosong.style.display = "none";
+            btnCheckout.disabled = false;
+
+            // Clear keranjang items
+            while (
+              keranjangItems.firstChild &&
+              keranjangItems.firstChild !== keranjangKosong
+            ) {
+              keranjangItems.removeChild(keranjangItems.firstChild);
+            }
+
+            // Calculate total
+            let total = 0;
+
+            // Add items to keranjang dropdown
+            keranjang.forEach((item, index) => {
+              const itemElement = document.createElement("div");
+              itemElement.className = "keranjang-item";
+
+              // Extract harga numerik
+              const hargaText = item.harga;
+              const hargaNumeric = parseInt(hargaText.replace(/\D/g, ""));
+              total += hargaNumeric * item.jumlah;
+
+              itemElement.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="m-0 fw-bold">${item.title}</p>
+                    <small class="text-muted">Kategori: ${item.kategori}</small><br>
+                    <small class="text-muted">Jumlah: ${item.jumlah}</small>
+                  </div>
+                  <div class="text-end">
+                    <p class="m-0">${item.harga}</p>
+                    <button class="btn btn-sm btn-danger btnHapusItem" data-index="${index}">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              `;
+
+              keranjangItems.insertBefore(itemElement, keranjangKosong);
+            });
+
+            // Update total
+            totalHarga.textContent = "Rp " + total.toLocaleString();
+            totalPembayaran.textContent = "Rp " + total.toLocaleString();
+
+            // Add event listeners to delete buttons
+            document.querySelectorAll(".btnHapusItem").forEach((button) => {
+              button.addEventListener("click", function (e) {
+                e.stopPropagation(); // Prevent dropdown from closing
+                const index = parseInt(this.getAttribute("data-index"));
+                let keranjang =
+                  JSON.parse(localStorage.getItem("keranjang")) || [];
+                keranjang.splice(index, 1);
+                localStorage.setItem("keranjang", JSON.stringify(keranjang));
+                updateKeranjangUI(keranjang);
+              });
+            });
+          }
+
+          // Detail button click
+          document.querySelectorAll(".btnDetail").forEach((button) => {
+            button.addEventListener("click", function () {
+              const title = this.getAttribute("data-title");
+              const imgSrc = this.getAttribute("data-img");
+              hargaAsli = parseInt(this.getAttribute("data-harga"));
+              const deskripsi = this.getAttribute("data-deskripsi");
+
+              currentProduct = {
+                title: title,
+                img: imgSrc,
+                harga: hargaAsli,
+                deskripsi: deskripsi,
+              };
+
+              modalTitle.innerText = title;
+              modalImage.innerHTML = `<img src="${imgSrc}" class="img-fluid rounded-3">`;
+              updateModalHarga();
+              modalDeskripsi.innerText = deskripsi;
+              jumlahTiket.value = 1;
+            });
+          });
+
+          // Update harga in modal based on kategori and quantity
+          function updateModalHarga() {
+            let hargaFinal = hargaAsli;
+            const kategori = modal.querySelector(
+              'input[name="kategori"]:checked'
+            ).value;
+            if (kategori === "Timur") {
+              hargaFinal = hargaAsli * 0.5; // Diskon 50% untuk Timur
+            }
+            const jumlah = parseInt(jumlahTiket.value) || 1;
+            modalHarga.innerText =
+              "Rp " + (hargaFinal * jumlah).toLocaleString();
+          }
+
+          // Kategori change
+          kategoriRadios.forEach((radio) => {
+            radio.addEventListener("change", updateModalHarga);
+          });
+
+          // Jumlah tiket change
+          jumlahTiket.addEventListener("change", updateModalHarga);
+          jumlahTiket.addEventListener("input", updateModalHarga);
+
+          // Add to cart button
+          btnBeli.addEventListener("click", function () {
+            const kategori = modal.querySelector(
+              'input[name="kategori"]:checked'
+            ).value;
+            const jumlah = parseInt(jumlahTiket.value) || 1;
+            let hargaFinal = hargaAsli;
+
+            if (kategori === "Timur") {
+              hargaFinal = hargaAsli * 0.5;
+            }
+
+            let tiket = {
+              title: modalTitle.innerText,
+              harga: "Rp " + hargaFinal.toLocaleString(),
+              kategori: kategori,
+              jumlah: jumlah,
+              img: modalImage.querySelector("img").src,
+            };
+
+            let keranjang = JSON.parse(localStorage.getItem("keranjang")) || [];
+            keranjang.push(tiket);
+            localStorage.setItem("keranjang", JSON.stringify(keranjang));
+
+            updateKeranjangUI(keranjang);
+
+            // Close modal
+            const bsModal = bootstrap.Modal.getInstance(modal);
+            bsModal.hide();
+
+            // Show confirmation
+            alert("Tiket Telah Masuk Keranjang!");
+          });
+
+          // Checkout button
+          btnCheckout.addEventListener("click", function () {
+            let keranjang = JSON.parse(localStorage.getItem("keranjang")) || [];
+            if (keranjang.length === 0) return;
+
+            // Calculate total
+            let total = 0;
+            keranjang.forEach((item) => {
+              const hargaText = item.harga;
+              const hargaNumeric = parseInt(hargaText.replace(/\D/g, ""));
+              total += hargaNumeric * item.jumlah;
+            });
+
+            totalPembayaran.textContent = "Rp " + total.toLocaleString();
+
+            // Show checkout modal
+            const checkoutModalInstance = new bootstrap.Modal(checkoutModal);
+            checkoutModalInstance.show();
+          });
+
+          // Process checkout button
+          btnProsesCheckout.addEventListener("click", function () {
+            const checkoutForm = document.getElementById("checkoutForm");
+
+            if (!checkoutForm.checkValidity()) {
+              checkoutForm.classList.add("was-validated");
+              return;
+            }
+
+            const nama = document.getElementById("nama").value;
+            const metode = document.getElementById("metodePembayaran").value;
+
+            // Clear cart
+            localStorage.removeItem("keranjang");
+            loadKeranjang();
+
+            // Close modal
+            const bsModal = bootstrap.Modal.getInstance(checkoutModal);
+            bsModal.hide();
+
+            // Show success message
+            alert(
+              `Terima kasih, ${nama}! Pembayaran Anda dengan metode ${metode} sedang diproses. Tiket akan dikirim ke email Anda setelah pembayaran berhasil.`
+            );
+          });
+
+          // Stop propagation on dropdown click to prevent closing
+          document
+            .getElementById("keranjangDropdown")
+            .addEventListener("click", function (e) {
+              e.stopPropagation();
+            });
+
+          // Initialize
+          loadKeranjang();
+        });
+      </script>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar Tiket Event</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>🎫 Daftar Tiket Event</h2>
+        <a href="keranjang.html" class="btn btn-primary position-relative">
+          🛒 Keranjang
+          <span
+            id="cartBadge"
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+          >
+            0
+          </span>
+        </a>
+      </div>
+
+      <div class="row" id="productList">
+        <!-- Daftar produk akan ditampilkan disini -->
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Contoh data tiket
+        const tiketData = [
+          {
+            id: 1,
+            title: "Konser Musik",
+            deskripsi: "Konser Musik Live",
+            harga: 150000,
+            img: "https://via.placeholder.com/150/FF5733/FFFFFF?text=Konser",
+          },
+          {
+            id: 2,
+            title: "Festival Film",
+            deskripsi: "3 Hari Festival Film",
+            harga: 200000,
+            img: "https://via.placeholder.com/150/33A8FF/FFFFFF?text=Film",
+          },
+          {
+            id: 3,
+            title: "Seminar Teknologi",
+            deskripsi: "Seminar Teknologi Terbaru",
+            harga: 100000,
+            img: "https://via.placeholder.com/150/33FF57/000000?text=Seminar",
+          },
+        ];
+
+        const productList = document.getElementById("productList");
+        const cartBadge = document.getElementById("cartBadge");
+
+        // Tampilkan daftar produk
+        tiketData.forEach((tiket) => {
+          const productCard = document.createElement("div");
+          productCard.className = "col-md-4 mb-4";
+          productCard.innerHTML = `
+          <div class="card">
+            <img src="${tiket.img}" class="card-img-top" alt="${tiket.title}">
+            <div class="card-body">
+              <h5 class="card-title">${tiket.title}</h5>
+              <p class="card-text">${tiket.deskripsi}</p>
+              <p class="card-text text-danger fw-bold">Rp ${tiket.harga.toLocaleString()}</p>
+              <button class="btn btn-success btn-sm addToCart" data-id="${
+                tiket.id
+              }">Tambah ke Keranjang</button>
+            </div>
+          </div>
+        `;
+          productList.appendChild(productCard);
+        });
+
+        // Update jumlah item di keranjang
+        function updateCartBadge() {
+          const keranjang = JSON.parse(localStorage.getItem("keranjang")) || [];
+          cartBadge.textContent = keranjang.length;
+        }
+
+        // Panggil sekali saat halaman dimuat
+        updateCartBadge();
+
+        // Tambahkan event listener untuk tombol "Tambah ke Keranjang"
+        document.querySelectorAll(".addToCart").forEach((button) => {
+          button.addEventListener("click", function () {
+            const id = parseInt(this.getAttribute("data-id"));
+            const tiket = tiketData.find((item) => item.id === id);
+
+            if (tiket) {
+              // Ambil keranjang dari localStorage
+              let keranjang =
+                JSON.parse(localStorage.getItem("keranjang")) || [];
+
+              // Tambahkan tiket ke keranjang
+              keranjang.push(tiket);
+
+              // Simpan kembali ke localStorage
+              localStorage.setItem("keranjang", JSON.stringify(keranjang));
+
+              // Update badge
+              updateCartBadge();
+
+              alert(`${tiket.title} telah ditambahkan ke keranjang!`);
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
